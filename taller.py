@@ -54,4 +54,29 @@ class Zeros:
 				it=it+1
 			return (c,it)
 		if(self.metodo=="newton"):
+			a=vi
+			b=self.f(vi)
+			c=Derivada(self.f, "adelante", 0.001)
+			d= a - (b/c.calc(vi))
+			it=1
+			while(self.f(d) > (self.error) or self.f(d) < -(self.error) or it<=self.max_iter):
+				a=d
+				b=self.f(a)
+				c=Derivada(self.f, "adelante", 0.001)
+				d= a - (b/c.calc(a))
+				it=it+1
+			return (c,it)
+		if(self.metodo=="interpolacion"):
+			a=vi[0]
+			b=vi[1]
+			c = a - ((b-a)/(self.f(b) - self.f(a)))*self.f(a)
+			it=1
+			while(self.f(c)> (self.error) or self.f(c) < -(self.error) or it<=self.max_iter):
+				if(self.f(c)>0):
+					b=c
+				elif(self.f(c)<0):
+					a=c
+				c = a - ((b-a)/(self.f(b) - self.f(a)))*self.f(a)
+				it=it+1
+			return (c,it)
 			
