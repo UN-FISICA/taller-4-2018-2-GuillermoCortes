@@ -82,5 +82,9 @@ class Zeros:
 				c = a - ((b-a)/(self.f(b) - self.f(a)))*self.f(a)
 				it=it+1
 			return (c,it)
-
-			
+		if(self.metodo=="newton-sp"):
+			return sp.optimize.newton(f,vi)
+		if(self.metodo=="brentq-sp"):
+		   	return sp.optimize.brentq(f, vi[0],vi[1])
+		if(self.metodo=="fsolve-sp"):
+			return sp.optimize.newton(f,vi)
