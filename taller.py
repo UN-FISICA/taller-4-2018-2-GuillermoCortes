@@ -1,3 +1,6 @@
+import scipy as sp
+import numpy as np
+
 class Derivada:
 	def __init__(self,f,metodo="adelante",dx=0.001):
 		self.f=f
@@ -8,13 +11,13 @@ class Derivada:
 			self.metodo = "central"
 		elif(metodo=="extrapolada"):
 			self.metodo="extrapolada"
-		elif(metodo=="segunda")
+		elif(metodo=="segunda"):
 			self.metodo="segunda"
-	def calc(self,x)
+	def calc(self,x):
 		if(self.metodo=="adelante"):
 			return (self.f(x+self.dx) - self.f(x))/self.dx
 		elif(self.metodo=="central"):
-			return (self.f(x+ (self.dx/2)) - f(x -(self.dx/2)))/self.dx
+			return (self.f(x+ (self.dx/2)) - self.f(x -(self.dx/2)))/self.dx
 		elif(self.metodo=="extrapolada"):
 			a=Derivada(self.f, "central", self.dx)
 			b=Derivada(self.f, "central", (self.dx)/2)
@@ -39,7 +42,7 @@ class Zeros:
 			self.metodo="fsolve-sp"
 		elif(metodo=="brentq-sp"):
 			self.metodo="brentq-sp"
-	def zero(self,vi)
+	def zero(self,vi):
 		if(self.metodo=="bisectriz"):
 			a=vi[0]
 			b=vi[1]
@@ -79,4 +82,5 @@ class Zeros:
 				c = a - ((b-a)/(self.f(b) - self.f(a)))*self.f(a)
 				it=it+1
 			return (c,it)
+
 			
