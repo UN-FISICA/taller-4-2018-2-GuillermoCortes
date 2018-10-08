@@ -48,7 +48,7 @@ class Zeros:
 			b=vi[1]
 			c=(a+b)/2
 			it=0
-			while( self.f(c) > self.error or self.f(c) < -(self.error) or it<=self.max_iter):
+			while( (self.f(c) > self.error or self.f(c) < -(self.error)) and it<=self.max_iter):
 				if(self.f(c) > 0):
 					a=c
 				elif(self.f(c) < 0):
@@ -62,7 +62,7 @@ class Zeros:
 			c=Derivada(self.f, "adelante", 0.001)
 			d= a - (b/c.calc(vi))
 			it=1
-			while(self.f(d) > (self.error) or self.f(d) < -(self.error) or it<=self.max_iter):
+			while( (self.f(d) > (self.error) or self.f(d) < -(self.error)) and it<=self.max_iter):
 				a=d
 				b=self.f(a)
 				c=Derivada(self.f, "adelante", 0.001)
@@ -72,14 +72,14 @@ class Zeros:
 		if(self.metodo=="interpolacion"):
 			a=vi[0]
 			b=vi[1]
-			c = a - ((b-a)/(self.f(b) - self.f(a)))*self.f(a)
+			c = a - (((b-a)/(self.f(b) - self.f(a)))*self.f(a))
 			it=1
-			while(self.f(c)> (self.error) or self.f(c) < -(self.error) or it<=self.max_iter):
-				if(self.f(c)>0):
+			while((self.f(c)> (self.error) or self.f(c) < -(self.error)) and it<=self.max_iter):
+				if(self.f(c)<0):
 					b=c
-				elif(self.f(c)<0):
+				elif(self.f(c)>0):
 					a=c
-				c = a - ((b-a)/(self.f(b) - self.f(a)))*self.f(a)
+				c = a - (((b-a)/(self.f(b) - self.f(a)))*self.f(a))
 				it=it+1
 			return (c,it)
 		if(self.metodo=="newton-sp"):
@@ -105,18 +105,18 @@ if __name__ == "__main__":
 	c1=Zeros(np.cos,"newton")
 	z1=c1.zero(1)
 	c2=Zeros(np.cos,"bisectriz")
-	z2=c2.zero((1,5))
+	z2=c2.zero((1,3))
 	c3=Zeros(np.cos,"interpolacion")
-	z3=c3.zero((1,5))
-	print("El cero de cos(x) usando el metodo de Newton es ",z1)
-	print("El cero de cos(x) en el intervalo (1,5), usando el metodo de la bisectriz, es ",z2)
-	print("El cero de cos(x) en el intervalo (1,5), usando el metodo de la interpolacion es ",z3)
+	z3=c3.zero((1,3))
+	print("El cero de cos(x) usando el metodo de Newton es ",z1[0],", con ",z1[1],"iteraciones.")
+	print("El cero de cos(x) en el intervalo (1,3), usando el metodo de la bisectriz, es ",z2[0]," con ",z2[1]," iteraciones.")
+	print("El cero de cos(x) en el intervalo (1,3), usando el metodo de la interpolacion es ",z3[0]," con ",z3[1]," iteraciones.)
 	c4=Zeros(np.cos,"newton-sp")
 	z4=c4.zero(1)
 	c5=Zeros(np.cos,"fsolve-sp")
 	z5=c5.zero(1)
 	c6=Zeros(np.cos,"brentq-sp")
-	z6=c6.zero((1,5))
+	z6=c6.zero((1,3))
 	print("El cero de cos(x), usando el metodo de Newton (Scipy) con punto inicial x=1, es ",z4)
-	print("El cero de cos(x) en el intervalo (1,5), usando la funcion brentq de Scipy, es ",z6)
+	print("El cero de cos(x) en el intervalo (1,3), usando la funcion brentq de Scipy, es ",z6)
 	print("El cero de cos(x), usando la funcion fsolve de Scipy con punto inicial x=1, es ",z5)		
