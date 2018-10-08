@@ -68,7 +68,7 @@ class Zeros:
 				c=Derivada(self.f, "adelante", 0.001)
 				d= a - (b/c.calc(a))
 				it=it+1
-			return (c,it)
+			return (d,it)
 		if(self.metodo=="interpolacion"):
 			a=vi[0]
 			b=vi[1]
@@ -110,7 +110,7 @@ if __name__ == "__main__":
 	z3=c3.zero((1,3))
 	print("El cero de cos(x) usando el metodo de Newton es ",z1[0],", con ",z1[1],"iteraciones.")
 	print("El cero de cos(x) en el intervalo (1,3), usando el metodo de la bisectriz, es ",z2[0]," con ",z2[1]," iteraciones.")
-	print("El cero de cos(x) en el intervalo (1,3), usando el metodo de la interpolacion es ",z3[0]," con ",z3[1]," iteraciones.)
+	print("El cero de cos(x) en el intervalo (1,3), usando el metodo de la interpolacion es ",z3[0]," con ",z3[1]," iteraciones".)
 	c4=Zeros(np.cos,"newton-sp")
 	z4=c4.zero(1)
 	c5=Zeros(np.cos,"fsolve-sp")
